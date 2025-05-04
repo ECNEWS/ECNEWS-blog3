@@ -1,1 +1,174 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>अपने ब्लॉग के लिए कोई नाम चुनें</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      padding: 20px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #2c3e50;
+      font-size: 26px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    p {
+      color: #7f8c8d;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .input-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+      position: relative;
+    }
+    input[type="text"] {
+      width: 70%;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-bottom: 2px solid #bdc3c7;
+      text-align: center;
+      outline: none;
+      background: #f9f9f9;
+      border-radius: 5px 5px 0 0;
+      transition: all 0.3s ease;
+    }
+    input[type="text"]:focus {
+      background: #fff;
+      border-bottom: 2px solid #3498db;
+    }
+    input.valid {
+      border-color: #2ecc71;
+    }
+    input.invalid {
+      border-color: #e74c3c;
+    }
+    #feedback {
+      margin: 10px 0;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #95a5a6;
+      color: white;
+      cursor: not-allowed;
+      transition: background-color 0.3s ease;
+    }
+    button.enabled {
+      background-color: #e74c3c;
+      cursor: pointer;
+    }
+    button.enabled:hover {
+      background-color: #c0392b;
+    }
+    .footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 12px;
+      color: #7f8c8d;
+    }
+    .footer a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABmJLR0QA/wD/AP+gvaeTAAABXklEQVRoge2aQU7DMBBE7w0KPYuip3EBNdQhgo/gAihyEydQRAEOoIhN7MA2kW0S2eQ/v2cSkrz3vQeA5cvV1dW5XC7fAmzbtr3f+5O+7/vV1dX5XC6n/g6wbdv2f+9P+r7vV1dX5/O5nPo7wLZt2/99P+n7vl9dXZ3P5XLq7wDbtm3/9/2k7/t+dXV1Pp/L6fcA27Zt//f9pO/7fnV1dT6Xy+k/AWzbtv3f95O+7/vV1dX5XC6n/g6wbdv2f+9P+r7vV1dX5/O5nPo7wLZt2/99P+n7vl9dXZ3P5XLq7wDbtm3/9/2k7/t+dXV1Pp/L6fcA27Zt//f9pO/7fnV1dT6Xy+k/AWzbtv3f95O+7/vV1dX5XC6n/g6wbdv2f+9P+r7vV1dX5/O5nPo7wLZt2/99P+n7vl9dXZ3P5XLq7wDbtm3/9/2k7/t+dXV1Pp/L6fcA27Zt//f9pO/7fnV1dT6Xy+k/AWzbtv3f95O+7/vV1dX5XC6n/g4Arz8CEd8u0aUAAAAASUVORK5CYII=" class="logo" alt="ECNews Blog Logo">
+    <h1>अपने ब्लॉग के लिए कोई नाम चुनें</h1>
+    <p>यह टाइटल आपके ब्लॉग पर सबसे ऊपर दिखेगा।</p>
 
+    <div class="input-section">
+      <input type="text" id="blogName" placeholder="टाइटल" oninput="checkBlogName()">
+    </div>
+    <div id="feedback"></div>
+
+    <button id="saveBtn" onclick="saveAndProceed()" disabled>✅ सेव करें और आगे जाएं</button>
+  </div>
+
+  <div class="footer">
+    ©2025 Blogger - <a href="#">विजेता नीति</a>
+  </div>
+
+  <script>
+    const takenNames = ["hinditech", "ecnews", "myblog", "farmupdates"];
+
+    function checkBlogName() {
+      const input = document.getElementById("blogName");
+      const feedback = document.getElementById("feedback");
+      const button = document.getElementById("saveBtn");
+      const name = input.value.trim().toLowerCase();
+
+      if (name === "") {
+        input.classList.remove("valid", "invalid");
+        feedback.textContent = "0 / 300";
+        feedback.style.color = "#666";
+        button.disabled = true;
+        button.classList.remove("enabled");
+        return;
+      }
+
+      if (takenNames.includes(name)) {
+        input.classList.add("invalid");
+        input.classList.remove("valid");
+        feedback.textContent = "अभी नहीं    रुकें";
+        feedback.style.color = "#e74c3c";
+        button.disabled = true;
+        button.classList.remove("enabled");
+      } else {
+        input.classList.add("valid");
+        input.classList.remove("invalid");
+        feedback.textContent = "अभी नहीं    अगला";
+        feedback.style.color = "#2ecc71";
+        button.disabled = false;
+        button.classList.add("enabled");
+      }
+    }
+
+    function saveAndProceed() {
+      const name = document.getElementById("blogName").value.trim();
+      if (name !== "") {
+        localStorage.setItem("blogName", name);
+        window.location.href = "https://ecnews.github.io/ECNEWSAPP-blog-3/";
+      }
+    }
+  </script>
+</body>
+</html>
